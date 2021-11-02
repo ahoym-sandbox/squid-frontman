@@ -1,20 +1,37 @@
-import cc from 'five-bells-condition';
-import crypto from 'crypto';
+import { xrplClient } from '../XrplApiSandbox';
+import {
+  createAccountSet,
+  createAccountSetDataWithMeta,
+} from './createAccountSet';
+import { createConditionAndFulfillment } from './utilities';
 
-const preimageData = crypto.randomBytes(32);
-const myFulfillment = new cc.PreimageSha256();
-myFulfillment.setPreimage(preimageData);
+const BANK_ADDRESS = 'rDKbcVEGucHNk2em68BSKJjwVQPgYtUJMo';
 
-const condition = myFulfillment
-  .getConditionBinary()
-  .toString('hex')
-  .toUpperCase();
-console.log('Condition:', condition);
-// (Random hexadecimal, 72 chars in length)
+function onAccountTransaction(event: any) {
+  const transaction = event.transaction;
 
-// keep secret until you want to finish executing the held payment:
-const fulfillment = myFulfillment
-  .serializeBinary()
-  .toString('hex')
-  .toUpperCase();
-console.log('Fulfillment:', fulfillment);
+  if (transaction && transaction.TransactionType === 'Payment') {
+    console.log('Logged payment to BANK_ADDRESS');
+
+    const [condition] = createConditionAndFulfillment();
+
+    const preparedAccountSetTx = createAccountSetDataWithMeta({
+      playerXrplAddress: transaction.Account,
+      condition,
+      senderXrplAddress: xrplClient.wallet()?.account.address!,
+    });
+    createAccountSet({
+      api: xrplClient.api(),
+      address: xrplClient.wallet()?.account.address!,
+      secret: xrplClient.wallet()?.account.secret!,
+      accountSetMetadataTx: preparedAccountSetTx,
+    });
+  }
+}
+
+xrplClient.subscribeToAccountTransactions(
+  {
+    accounts: [BANK_ADDRESS],
+  },
+  onAccountTransaction
+);
