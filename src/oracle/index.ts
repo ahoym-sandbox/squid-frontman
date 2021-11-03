@@ -7,48 +7,62 @@ import { createConditionAndFulfillment } from './utilities';
 
 const BANK_ADDRESS = 'rDKbcVEGucHNk2em68BSKJjwVQPgYtUJMo';
 
-function onAccountSetCreationSuccess(
-  playerXrplAddress: string,
-  condition: string,
-  fulfillment: string
-) {
-  console.log('yayaya playerXrplAddress', playerXrplAddress);
-  console.log('yayaya condition', condition);
-  console.log('yayaya fulfillment', fulfillment);
-}
-
-function onAccountTransaction(event: any) {
+function onAccountTransaction(event: any): Promise<{
+  event: any;
+  playerXrplAddress: string;
+  condition: string;
+  fulfillment: string;
+}> {
   const transaction = event.transaction;
 
-  if (transaction && transaction.TransactionType === 'Payment') {
-    console.log('Logged payment to BANK_ADDRESS', transaction);
-    const [condition, fulfillment] = createConditionAndFulfillment();
+  return new Promise((resolve) => {
+    if (transaction && transaction.TransactionType === 'Payment') {
+      console.log('Logged payment to BANK_ADDRESS', transaction);
+      const [condition, fulfillment] = createConditionAndFulfillment();
 
-    const preparedAccountSetTx = createAccountSetDataWithMeta({
-      playerXrplAddress: transaction.Account,
-      condition,
-      senderXrplAddress: xrplClient.wallet()?.account.address!,
-    });
-    createAccountSet({
-      api: xrplClient.api(),
-      address: xrplClient.wallet()?.account.address!,
-      secret: xrplClient.wallet()?.account.secret!,
-      accountSetMetadataTx: preparedAccountSetTx,
-      onSuccess: () =>
-        onAccountSetCreationSuccess(
-          transaction.Account,
-          condition,
-          fulfillment
-        ),
-    });
-  }
+      const preparedAccountSetTx = createAccountSetDataWithMeta({
+        playerXrplAddress: transaction.Account,
+        condition,
+        senderXrplAddress: xrplClient.wallet()?.account.address!,
+      });
+      createAccountSet({
+        api: xrplClient.api(),
+        address: xrplClient.wallet()?.account.address!,
+        secret: xrplClient.wallet()?.account.secret!,
+        accountSetMetadataTx: preparedAccountSetTx,
+        onSuccess: (event: any) => {
+          resolve({
+            event,
+            playerXrplAddress: transaction.Account,
+            condition,
+            fulfillment,
+          });
+        },
+      });
+    }
+  });
 }
 
-xrplClient.generateFaucetWallet().then(() =>
-  xrplClient.subscribeToAccountTransactions(
-    {
-      accounts: [BANK_ADDRESS],
-    },
-    onAccountTransaction
-  )
-);
+export async function listenAndCreateAccountSets(
+  onSuccess?: (options: {
+    playerXrplAddress: string;
+    condition: string;
+    fulfillment: string;
+  }) => Promise<unknown> | unknown
+) {
+  xrplClient.generateFaucetWallet().then(() =>
+    xrplClient.subscribeToAccountTransactions(
+      {
+        accounts: [BANK_ADDRESS],
+      },
+      async (event: any) => {
+        const { playerXrplAddress, condition, fulfillment } =
+          await onAccountTransaction(event);
+
+        if (onSuccess) {
+          return onSuccess({ playerXrplAddress, condition, fulfillment });
+        }
+      }
+    )
+  );
+}
