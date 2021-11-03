@@ -2560,8 +2560,8 @@ asap@~2.0.6:
 
 asn1.js@^4.9.0:
   version "4.10.1"
-  resolved "https://artifactory.ops.ripple.com:443/artifactory/api/npm/ripple-npm/asn1.js/-/asn1.js-4.10.1.tgz#b9c2bf5805f1e64aadeed6df3a2bfafb5a73f5a0"
-  integrity sha1-ucK/WAXx5kqt7tbfOiv6+1pz9aA=
+  resolved "https://registry.yarnpkg.com/asn1.js/-/asn1.js-4.10.1.tgz#b9c2bf5805f1e64aadeed6df3a2bfafb5a73f5a0"
+  integrity sha512-p32cOF5q0Zqs9uBiONKYLm6BClCoBCM5O9JfeUSlnQLBTxYdTK+pW+nXflm8UkKd2UYlEbYz5qEi0JuZR9ckSw==
   dependencies:
     bn.js "^4.0.0"
     inherits "^2.0.1"
@@ -4400,7 +4400,7 @@ duplexify@^3.4.2, duplexify@^3.6.0:
 
 ed25519@0.0.4:
   version "0.0.4"
-  resolved "https://artifactory.ops.ripple.com:443/artifactory/api/npm/ripple-npm/ed25519/-/ed25519-0.0.4.tgz#e56218ace2fc903d259593aef0b2a9639f475beb"
+  resolved "https://registry.yarnpkg.com/ed25519/-/ed25519-0.0.4.tgz#e56218ace2fc903d259593aef0b2a9639f475beb"
   integrity sha1-5WIYrOL8kD0llZOu8LKpY59HW+s=
   dependencies:
     bindings "^1.2.1"
@@ -5191,7 +5191,7 @@ find-up@^3.0.0:
 
 five-bells-condition@^5.0.1:
   version "5.0.1"
-  resolved "https://artifactory.ops.ripple.com:443/artifactory/api/npm/ripple-npm/five-bells-condition/-/five-bells-condition-5.0.1.tgz#771029f4b9a56b3d9ad8fe1e8f7549c675d82d80"
+  resolved "https://registry.yarnpkg.com/five-bells-condition/-/five-bells-condition-5.0.1.tgz#771029f4b9a56b3d9ad8fe1e8f7549c675d82d80"
   integrity sha1-dxAp9Lmlaz2a2P4ej3VJxnXYLYA=
   dependencies:
     asn1.js "^4.9.0"
@@ -10845,7 +10845,7 @@ tty-browserify@0.0.0:
 
 tweetnacl@^0.14.1:
   version "0.14.5"
-  resolved "https://artifactory.ops.ripple.com:443/artifactory/api/npm/ripple-npm/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
 type-check@^0.4.0, type-check@~0.4.0:
