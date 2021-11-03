@@ -1,0 +1,35 @@
+.PlayerGrid {
+  transform: rotate(45deg);
+  max-width: 45%;
+  display: inline-flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.PlayerCell {
+  width: 160px;
+  height: 160px;
+  border: 2px solid white;
+  background-color: green;
+}
+
+.PlayerCell:hover {
+  transition: 0.3s all ease-in-out;
+  background-color: darkred;
+}
+
+.PlayerCell-content {
+  text-align: center;
+  margin-top: 25%;
+  font-size: 14px;
+  overflow: auto;
+  transform: rotate(-45deg);
+}
+
+.active {
+  border-bottom-color: green;
+}
+
+.eliminated {
+  border-top-color: black;
+}
