@@ -293,8 +293,8 @@ const TEST_NET_WALLET_DO_NOT_USE_IN_PROD_OR_YOURE_OWARI_DA = {
     classicAddress: 'rDDqrVxbVgyxkit5jEd84ndwi1YpxGqgL7',
     address: 'rDDqrVxbVgyxkit5jEd84ndwi1YpxGqgL7',
   },
-  amount: 1000,
-  balance: 1000,
+  amount: 1000, // HEY! LISTEN! Does not reflect actual values in ledger
+  balance: 1000, // HEY! LISTEN! Does not reflect actual values in ledger
 };
 
 export const xrplClient = generateTestnetXrplClient();
