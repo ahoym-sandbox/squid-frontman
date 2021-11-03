@@ -38,6 +38,9 @@ export class RippleAPIClient {
     this.connect();
   }
 
+  public api = () => this.#api;
+  public wallet = () => this.#wallet;
+
   private connect = () => {
     if (this.#api.isConnected()) {
       return Promise.resolve(true);
@@ -46,8 +49,13 @@ export class RippleAPIClient {
     return this.#api.connect();
   };
 
-  public api = () => this.#api;
-  public wallet = () => this.#wallet;
+  public disconnect = () => {
+    if (!this.#api.isConnected()) {
+      return Promise.resolve(true);
+    }
+
+    return this.#api.disconnect();
+  };
 
   public connectAndGetWallet = async () => {
     if (this.#wallet === null) {
@@ -277,6 +285,8 @@ export function generateTestnetXrplClient() {
 export const xrplClient = generateTestnetXrplClient();
 export const xrplClientTwo = generateTestnetXrplClient();
 const publicRippleAPI = new RippleAPI({ server: TEST_NET });
+
+xrplClient.generateFaucetWallet();
 
 // Place RippleAPI on the window so developers can experiment with
 // it in the web console
