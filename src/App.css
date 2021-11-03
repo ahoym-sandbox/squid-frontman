@@ -22,10 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
+  padding-bottom: 100vh;
 }
 
 @keyframes App-logo-spin {
@@ -40,9 +37,4 @@
 .App-logs {
   text-align: left;
   font-size: 12px;
-}
-
-.App-console-log {
-  font-size: 14px;
-  color: darkorange;
 }
