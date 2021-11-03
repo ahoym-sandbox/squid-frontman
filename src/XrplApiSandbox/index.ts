@@ -8,6 +8,7 @@ import {
   TransactionJSON,
 } from 'ripple-lib';
 import { FaucetWallet } from 'ripple-lib/dist/npm/wallet/wallet-generation';
+import { publishWinnerFulfillment } from '../oracle';
 
 const RIPPLE_EPOCH = 946684800;
 
@@ -308,3 +309,4 @@ const publicRippleAPI = generateTestnetXrplClient();
 (window as any).RippleAPI = RippleAPI;
 (window as any).publicRippleAPI = publicRippleAPI;
 (window as any).xrplClient = xrplClient;
+(window as any).publishWinnerFulfillment = publishWinnerFulfillment;
