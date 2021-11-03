@@ -17,7 +17,7 @@ function onAccountTransaction(event: any): Promise<{
 
   return new Promise((resolve) => {
     if (transaction && transaction.TransactionType === 'Payment') {
-      console.log('Logged payment to BANK_ADDRESS', transaction);
+      console.log('A payment was logged to the Piggy bank.', transaction);
       const [condition, fulfillment] = createConditionAndFulfillment();
 
       const preparedAccountSetTx = createAccountSetDataWithMeta({
