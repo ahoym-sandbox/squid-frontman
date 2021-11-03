@@ -1,14 +1,20 @@
 import './App.css';
 import { PlayersContainer } from './features/PlayersContainer';
-import logo from './logo.svg';
 import { RegistrationContainer } from './RegistrationContainer';
+import { Circle } from './shapes/Circle';
+import { Square } from './shapes/Square';
+import { Triangle } from './shapes/Triangle';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <RegistrationContainer />
-        <img src={logo} className="App-logo" alt="logo" />
+        <div className="Squid">
+          <Circle />
+          <Triangle />
+          <Square />
+        </div>
         <PlayersContainer />
       </header>
     </div>
