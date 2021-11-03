@@ -1,5 +1,7 @@
-import { xrplClient, xrplClientTwo } from '../index';
+import { generateTestnetXrplClient, xrplClient } from '../index';
 import { logMessageAndPass } from '../utilities';
+
+const xrplClientTwo = generateTestnetXrplClient();
 
 // Generate testnet wallets
 const generateWalletRequestOne = xrplClient

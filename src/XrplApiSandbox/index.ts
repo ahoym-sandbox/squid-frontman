@@ -308,6 +308,3 @@ const publicRippleAPI = generateTestnetXrplClient();
 (window as any).RippleAPI = RippleAPI;
 (window as any).publicRippleAPI = publicRippleAPI;
 (window as any).xrplClient = xrplClient;
-
-export const xrplClientTwo = generateTestnetXrplClient();
-(window as any).xrplClientTwo = xrplClientTwo;
