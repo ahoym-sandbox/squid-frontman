@@ -69,7 +69,8 @@ export async function listenAndCreateAccountSets(
 
 export function publishWinnerFulfillment(
   winnerAddress: string,
-  fulfillment: string
+  fulfillment: string,
+  onSuccess?: (event: any) => any
 ) {
   const preparedAccountSetTx = createAccountSetDataWithMeta({
     playerXrplAddress: winnerAddress,
@@ -83,6 +84,9 @@ export function publishWinnerFulfillment(
     accountSetMetadataTx: preparedAccountSetTx,
     onSuccess: (event: any) => {
       console.log(event);
+      if (onSuccess) {
+        onSuccess(event);
+      }
     },
   });
 }
