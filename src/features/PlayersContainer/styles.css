@@ -1,6 +1,6 @@
 .PlayerGrid {
   transform: rotate(45deg);
-  max-width: 45%;
+  max-width: 55vw;
   display: inline-flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -11,10 +11,11 @@
   height: 160px;
   border: 2px solid white;
   background-color: green;
+  animation: fadein 0.5s;
+  transition: 0.3s all ease-in-out;
 }
 
 .PlayerCell:hover {
-  transition: 0.3s all ease-in-out;
   background-color: darkred;
 }
 
@@ -32,4 +33,13 @@
 
 .eliminated {
   border-top-color: black;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
