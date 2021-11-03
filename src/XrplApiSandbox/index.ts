@@ -288,10 +288,10 @@ export function generateTestnetXrplClient() {
 
 const TEST_NET_WALLET_DO_NOT_USE_IN_PROD_OR_YOURE_OWARI_DA = {
   account: {
-    xAddress: 'TVhty1ACyD5faFtjwkjgXVXx5JdDY6VZ4p3rgw3iZpCUoxU',
-    secret: 'spoexTgjKNVY15uDJi4tryMLZyL7c',
-    classicAddress: 'rDDqrVxbVgyxkit5jEd84ndwi1YpxGqgL7',
-    address: 'rDDqrVxbVgyxkit5jEd84ndwi1YpxGqgL7',
+    xAddress: 'T7RJHwztFc2qftpVHTn68CY8Hh7xQ788RfJggbB5VB5aMvq',
+    secret: 'spzQvapMUiYgTRpnq2tL6hwPzhybY',
+    classicAddress: 'rgbv6kNj77J9DTjZM39Q5xi1pzufv13g1',
+    address: 'rgbv6kNj77J9DTjZM39Q5xi1pzufv13g1',
   },
   amount: 1000, // HEY! LISTEN! Does not reflect actual values in ledger
   balance: 1000, // HEY! LISTEN! Does not reflect actual values in ledger
