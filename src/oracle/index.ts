@@ -7,13 +7,22 @@ import { createConditionAndFulfillment } from './utilities';
 
 const BANK_ADDRESS = 'rDKbcVEGucHNk2em68BSKJjwVQPgYtUJMo';
 
+function onAccountSetCreationSuccess(
+  playerXrplAddress: string,
+  condition: string,
+  fulfillment: string
+) {
+  console.log('yayaya playerXrplAddress', playerXrplAddress);
+  console.log('yayaya condition', condition);
+  console.log('yayaya fulfillment', fulfillment);
+}
+
 function onAccountTransaction(event: any) {
   const transaction = event.transaction;
 
   if (transaction && transaction.TransactionType === 'Payment') {
-    console.log('Logged payment to BANK_ADDRESS');
-
-    const [condition] = createConditionAndFulfillment();
+    console.log('Logged payment to BANK_ADDRESS', transaction);
+    const [condition, fulfillment] = createConditionAndFulfillment();
 
     const preparedAccountSetTx = createAccountSetDataWithMeta({
       playerXrplAddress: transaction.Account,
@@ -25,6 +34,12 @@ function onAccountTransaction(event: any) {
       address: xrplClient.wallet()?.account.address!,
       secret: xrplClient.wallet()?.account.secret!,
       accountSetMetadataTx: preparedAccountSetTx,
+      onSuccess: () =>
+        onAccountSetCreationSuccess(
+          transaction.Account,
+          condition,
+          fulfillment
+        ),
     });
   }
 }
