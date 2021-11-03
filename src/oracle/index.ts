@@ -56,13 +56,14 @@ export async function listenAndCreateAccountSets(
     {
       accounts: [BANK_ADDRESS],
     },
-    async (event: any) => {
-      const { playerXrplAddress, condition, fulfillment } =
-        await onAccountTransaction(event);
-
-      if (onSuccess) {
-        return onSuccess({ playerXrplAddress, condition, fulfillment });
-      }
+    (event: any) => {
+      return onAccountTransaction(event).then(
+        ({ playerXrplAddress, condition, fulfillment }) => {
+          if (onSuccess) {
+            return onSuccess({ playerXrplAddress, condition, fulfillment });
+          }
+        }
+      );
     }
   );
 }
