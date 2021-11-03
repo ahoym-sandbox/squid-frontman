@@ -5,7 +5,7 @@ import {
 } from './createAccountSet';
 import { createConditionAndFulfillment } from './utilities';
 
-const BANK_ADDRESS = 'rDKbcVEGucHNk2em68BSKJjwVQPgYtUJMo';
+const BANK_ADDRESS = 'rUEqxgBLfgoqZWC8B94shLXUV8pUxhwrnX';
 
 function onAccountTransaction(event: any): Promise<{
   event: any;
