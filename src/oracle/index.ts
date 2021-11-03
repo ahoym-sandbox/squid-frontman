@@ -1,11 +1,11 @@
-import { xrplClient } from '../XrplApiSandbox';
+import { xrplClient } from "../XrplApiSandbox";
 import {
   createAccountSet,
   createAccountSetDataWithMeta,
-} from './createAccountSet';
-import { createConditionAndFulfillment } from './utilities';
+} from "./createAccountSet";
+import { createConditionAndFulfillment } from "./utilities";
 
-const BANK_ADDRESS = 'rUEqxgBLfgoqZWC8B94shLXUV8pUxhwrnX';
+const BANK_ADDRESS = "rUEqxgBLfgoqZWC8B94shLXUV8pUxhwrnX";
 
 function onAccountTransaction(event: any): Promise<{
   event: any;
@@ -16,8 +16,8 @@ function onAccountTransaction(event: any): Promise<{
   const transaction = event.transaction;
 
   return new Promise((resolve) => {
-    if (transaction && transaction.TransactionType === 'Payment') {
-      console.log('Logged payment to BANK_ADDRESS', transaction);
+    if (transaction && transaction.TransactionType === "Payment") {
+      console.log("Logged payment to BANK_ADDRESS", transaction);
       const [condition, fulfillment] = createConditionAndFulfillment();
 
       const preparedAccountSetTx = createAccountSetDataWithMeta({
