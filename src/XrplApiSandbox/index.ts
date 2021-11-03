@@ -57,6 +57,10 @@ export class RippleAPIClient {
     return this.#api.disconnect();
   };
 
+  public setWallet = (wallet: FaucetWallet) => {
+    this.#wallet = wallet;
+  };
+
   public connectAndGetWallet = async () => {
     if (this.#wallet === null) {
       throw new Error('Input wallet credentials or instantiate a new one.');
