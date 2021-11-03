@@ -1,32 +1,31 @@
 import { useEffect, useState } from 'react';
+import { usePlayersContext } from './contexts/usePlayersContext';
 import { listenAndCreateAccountSets } from './oracle';
 import { xrplClient } from './XrplApiSandbox';
 
-function onAccountSetCreationSuccess(data: {
-  playerXrplAddress: string;
-  condition: string;
-  fulfillment: string;
-}) {
-  const { playerXrplAddress, condition, fulfillment } = data;
-  console.log('new');
-
-  console.log('yayaya playerXrplAddress', playerXrplAddress);
-  console.log('yayaya condition', condition);
-  console.log('yayaya fulfillment', fulfillment);
-}
-
 export function RegistrationContainer() {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const { addPlayer } = usePlayersContext();
 
   useEffect(() => {
     if (isRegistrationOpen) {
       console.log('Registration isOpen');
-      listenAndCreateAccountSets(onAccountSetCreationSuccess);
+
+      function newEntry(data: any) {
+        console.log('New player joined:', data);
+        addPlayer({
+          address: data.playerXrplAddress,
+          condition: data.condition,
+          fulfillment: data.fulfillment,
+        });
+      }
+
+      listenAndCreateAccountSets(newEntry);
     } else {
       console.log('Registration isClosed');
       xrplClient.disconnect();
     }
-  }, [isRegistrationOpen]);
+  }, [isRegistrationOpen, addPlayer]);
 
   return (
     <div>
