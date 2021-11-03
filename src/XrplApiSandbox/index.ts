@@ -286,15 +286,28 @@ export function generateTestnetXrplClient() {
   return new RippleAPIClient({ server: TEST_NET });
 }
 
-export const xrplClient = generateTestnetXrplClient();
-export const xrplClientTwo = generateTestnetXrplClient();
-const publicRippleAPI = new RippleAPI({ server: TEST_NET });
+const TEST_NET_WALLET_DO_NOT_USE_IN_PROD_OR_YOURE_OWARI_DA = {
+  account: {
+    xAddress: 'TVhty1ACyD5faFtjwkjgXVXx5JdDY6VZ4p3rgw3iZpCUoxU',
+    secret: 'spoexTgjKNVY15uDJi4tryMLZyL7c',
+    classicAddress: 'rDDqrVxbVgyxkit5jEd84ndwi1YpxGqgL7',
+    address: 'rDDqrVxbVgyxkit5jEd84ndwi1YpxGqgL7',
+  },
+  amount: 1000,
+  balance: 1000,
+};
 
+export const xrplClient = generateTestnetXrplClient();
+xrplClient.setWallet(TEST_NET_WALLET_DO_NOT_USE_IN_PROD_OR_YOURE_OWARI_DA);
 xrplClient.generateFaucetWallet();
+
+const publicRippleAPI = generateTestnetXrplClient();
 
 // Place RippleAPI on the window so developers can experiment with
 // it in the web console
 (window as any).RippleAPI = RippleAPI;
 (window as any).publicRippleAPI = publicRippleAPI;
 (window as any).xrplClient = xrplClient;
+
+export const xrplClientTwo = generateTestnetXrplClient();
 (window as any).xrplClientTwo = xrplClientTwo;
