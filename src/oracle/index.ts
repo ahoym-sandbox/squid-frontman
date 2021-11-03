@@ -29,9 +29,11 @@ function onAccountTransaction(event: any) {
   }
 }
 
-xrplClient.subscribeToAccountTransactions(
-  {
-    accounts: [BANK_ADDRESS],
-  },
-  onAccountTransaction
+xrplClient.generateFaucetWallet().then(() =>
+  xrplClient.subscribeToAccountTransactions(
+    {
+      accounts: [BANK_ADDRESS],
+    },
+    onAccountTransaction
+  )
 );
