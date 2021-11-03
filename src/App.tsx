@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import { PlayersContainer } from './features/PlayersContainer';
 import logo from './logo.svg';
 import { RegistrationContainer } from './RegistrationContainer';
 
@@ -34,6 +35,8 @@ function App() {
         </div>
 
         <RegistrationContainer />
+        <PlayersContainer />
+
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>

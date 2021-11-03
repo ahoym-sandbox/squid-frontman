@@ -1,0 +1,45 @@
+.PlayerGrid {
+  transform: rotate(45deg);
+  max-width: 55vw;
+  display: inline-flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.PlayerCell {
+  width: 160px;
+  height: 160px;
+  border: 2px solid white;
+  background-color: green;
+  animation: fadein 0.5s;
+  transition: 0.3s all ease-in-out;
+}
+
+.PlayerCell:hover {
+  background-color: darkred;
+}
+
+.PlayerCell-content {
+  text-align: center;
+  margin-top: 25%;
+  font-size: 14px;
+  overflow: auto;
+  transform: rotate(-45deg);
+}
+
+.active {
+  border-bottom-color: green;
+}
+
+.eliminated {
+  border-top-color: black;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
