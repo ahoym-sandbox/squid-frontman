@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 import logo from './logo.svg';
+import { RegistrationContainer } from './RegistrationContainer';
 
 // Execute oracle code. Change BANK_ADDRESS
-import './oracle';
+// import './oracle';
 
 function App() {
   const [logs] = useState<unknown[]>([]);
@@ -32,6 +33,7 @@ function App() {
           })}
         </div>
 
+        <RegistrationContainer />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
