@@ -66,3 +66,23 @@ export async function listenAndCreateAccountSets(
     }
   );
 }
+
+export function publishWinnerFulfillment(
+  winnerAddress: string,
+  fulfillment: string
+) {
+  const preparedAccountSetTx = createAccountSetDataWithMeta({
+    playerXrplAddress: winnerAddress,
+    fulfillment,
+    senderXrplAddress: xrplClient.wallet()?.account.address!,
+  });
+  createAccountSet({
+    api: xrplClient.api(),
+    address: xrplClient.wallet()?.account.address!,
+    secret: xrplClient.wallet()?.account.secret!,
+    accountSetMetadataTx: preparedAccountSetTx,
+    onSuccess: (event: any) => {
+      console.log(event);
+    },
+  });
+}
