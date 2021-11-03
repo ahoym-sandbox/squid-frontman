@@ -50,19 +50,19 @@ export async function listenAndCreateAccountSets(
     fulfillment: string;
   }) => Promise<unknown> | unknown
 ) {
-  xrplClient.generateFaucetWallet().then(() =>
-    xrplClient.subscribeToAccountTransactions(
-      {
-        accounts: [BANK_ADDRESS],
-      },
-      async (event: any) => {
-        const { playerXrplAddress, condition, fulfillment } =
-          await onAccountTransaction(event);
+  await xrplClient.generateFaucetWallet();
 
-        if (onSuccess) {
-          return onSuccess({ playerXrplAddress, condition, fulfillment });
-        }
+  xrplClient.subscribeToAccountTransactions(
+    {
+      accounts: [BANK_ADDRESS],
+    },
+    async (event: any) => {
+      const { playerXrplAddress, condition, fulfillment } =
+        await onAccountTransaction(event);
+
+      if (onSuccess) {
+        return onSuccess({ playerXrplAddress, condition, fulfillment });
       }
-    )
+    }
   );
 }
