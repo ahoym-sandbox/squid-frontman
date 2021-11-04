@@ -66,7 +66,7 @@ export async function listenAndCreateAccountSets(
   );
 }
 
-export function publishWinnerFulfillment(
+export async function publishWinnerFulfillment(
   winnerAddress: string,
   fulfillment: string,
   onSuccess?: (event: any) => any
@@ -86,5 +86,28 @@ export function publishWinnerFulfillment(
         onSuccess(event);
       }
     },
+  });
+}
+
+export function publishMessage(
+  message: string,
+  onSuccess?: (event: any) => any
+) {
+  return xrplClient.generateFaucetWallet().then(() => {
+    const preparedAccountSetTx = createAccountSetDataWithMeta({
+      message,
+      senderXrplAddress: xrplClient.wallet()?.account.address!,
+    });
+    createAccountSet({
+      api: xrplClient.api(),
+      address: xrplClient.wallet()?.account.address!,
+      secret: xrplClient.wallet()?.account.secret!,
+      accountSetMetadataTx: preparedAccountSetTx,
+      onSuccess: (event: any) => {
+        if (onSuccess) {
+          onSuccess(event);
+        }
+      },
+    });
   });
 }

@@ -35,7 +35,7 @@ function createBaseAccountSetMetaDataTx(address: string) {
 }
 
 interface AccountSetMetadata {
-  playerXrplAddress: string;
+  playerXrplAddress?: string;
   senderXrplAddress: string;
   condition?: string;
   fulfillment?: string;
@@ -57,13 +57,15 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
   // Save metadata as tx memos
   const memos = [];
 
-  memos.push({
-    Memo: {
-      MemoData: toHex(playerXrplAddress),
-      MemoFormat: toHex('text/plain'),
-      MemoType: toHex('nft/0'), // Player
-    },
-  });
+  if (playerXrplAddress) {
+    memos.push({
+      Memo: {
+        MemoData: toHex(playerXrplAddress),
+        MemoFormat: toHex('text/plain'),
+        MemoType: toHex('nft/0'), // Player
+      },
+    });
+  }
 
   if (condition) {
     memos.push({

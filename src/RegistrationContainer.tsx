@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useConfettiContext } from './contexts/useConfetti';
 import { usePlayersContext } from './contexts/usePlayersContext';
-import { listenAndCreateAccountSets } from './oracle';
+import { listenAndCreateAccountSets, publishMessage } from './oracle';
 import { xrplClient } from './XrplApiSandbox';
 
 export function RegistrationContainer() {
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean | void>(
+    undefined
+  );
+  const [currentGame, setCurrentGame] = useState<number>(Number(new Date()));
   const { addPlayer } = usePlayersContext();
   const { toggleConfetti } = useConfettiContext();
 
   useEffect(() => {
     if (isRegistrationOpen) {
       toggleConfetti(false);
+      setCurrentGame(Number(new Date()));
       console.log('Registration isOpen');
+      publishMessage(`[SQUID-1] A new game (${currentGame}) is starting.`);
 
       function newEntry(data: any) {
         addPlayer({
@@ -24,11 +29,15 @@ export function RegistrationContainer() {
       }
 
       listenAndCreateAccountSets(newEntry);
-    } else {
+      // explicitly check for false, as `undefined` is the initial component mounted state
+    } else if (isRegistrationOpen === false) {
       console.log('Registration isClosed');
-      xrplClient.disconnect();
+      publishMessage(
+        `[SQUID-0] Game (${currentGame}) has started. Admission payments will no longer be registered.`,
+        xrplClient.disconnect
+      );
     }
-  }, [isRegistrationOpen, addPlayer, toggleConfetti]);
+  }, [isRegistrationOpen, addPlayer, toggleConfetti, currentGame]);
 
   return (
     <div className="RegistrationContainer">
@@ -47,6 +56,9 @@ export function RegistrationContainer() {
           Open Registration
         </button>
       )}
+      <p className="RegistrationContainer-current-game">
+        Current Game: {currentGame}
+      </p>
     </div>
   );
 }
