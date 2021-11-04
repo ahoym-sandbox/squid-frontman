@@ -12,7 +12,6 @@ export function RegistrationContainer() {
       console.log('Registration isOpen');
 
       function newEntry(data: any) {
-        console.log('New player joined:', data);
         addPlayer({
           address: data.playerXrplAddress,
           condition: data.condition,
@@ -28,13 +27,19 @@ export function RegistrationContainer() {
   }, [isRegistrationOpen, addPlayer]);
 
   return (
-    <div>
+    <div className="RegistrationContainer">
       {isRegistrationOpen ? (
-        <button onClick={() => setIsRegistrationOpen(false)}>
+        <button
+          className="Squid-button Squid-button--open"
+          onClick={() => setIsRegistrationOpen(false)}
+        >
           Close Registration
         </button>
       ) : (
-        <button onClick={() => setIsRegistrationOpen(true)}>
+        <button
+          className="Squid-button"
+          onClick={() => setIsRegistrationOpen(true)}
+        >
           Open Registration
         </button>
       )}

@@ -9,28 +9,24 @@
 .PlayerCell {
   width: 160px;
   height: 160px;
-  border: 1px solid black;
-  background-color: green;
+  border: 2px solid white;
+  background-color: #00d091;
   animation: fadein 0.5s;
-  transition: 0.3s all ease-in-out;
-}
-
-.PlayerCell:hover {
-  background-color: darkred;
+  transition: all 0.3s ease-in-out;
 }
 
 .PlayerCell-content {
   text-align: center;
-  margin-top: 25%;
+  margin-top: 33%;
   font-size: 14px;
   overflow: auto;
   transform: rotate(-45deg);
 }
 
-.active {
-  border-bottom-color: green;
+.victor:hover {
+  background-color: #0a93eb;
 }
 
-.eliminated {
-  border-top-color: black;
+.remove:hover {
+  background-color: #3b4147;
 }

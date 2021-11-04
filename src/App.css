@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -68,4 +68,25 @@
   100% {
     opacity: 1;
   }
+}
+
+.RegistrationContainer {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+}
+
+.Squid-button {
+  color: #d55483;
+  background-color: transparent;
+  border-style: solid;
+  border-radius: 12px;
+  border-color: #d55483;
+  padding: 12px 24px;
+  transition: all 0.25s ease-in-out;
+}
+
+.Squid-button--open,
+.Squid-button:hover {
+  box-shadow: 0px 4px 8px, 0 0 8px;
 }
