@@ -1,13 +1,13 @@
-import { RippleAPI } from 'ripple-lib';
+import { RippleAPI } from "ripple-lib";
 
 // ASCII only
 export function toHex(s: string) {
   return s
-    .split('')
+    .split("")
     .map((c) => {
-      return ('0' + c.charCodeAt(0).toString(16)).slice(-2);
+      return ("0" + c.charCodeAt(0).toString(16)).slice(-2);
     })
-    .join('')
+    .join("")
     .toUpperCase();
 }
 
@@ -16,9 +16,9 @@ function createBaseAccountSetMetaDataTx(address: string) {
   return Object.assign(
     {},
     {
-      TransactionType: 'AccountSet',
+      TransactionType: "AccountSet",
       Account: address,
-      Fee: '12', // Drops
+      Fee: "12", // Drops
       // "Sequence": 5,
       SetFlag: 8, // asfDefaultRipple
       // "Memos": [
@@ -61,8 +61,8 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
     memos.push({
       Memo: {
         MemoData: toHex(playerXrplAddress),
-        MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/0'), // Player
+        MemoFormat: toHex("text/plain"),
+        MemoType: toHex("nft/0"), // Player
       },
     });
   }
@@ -71,8 +71,8 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
     memos.push({
       Memo: {
         MemoData: toHex(condition),
-        MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/1'), // Condition
+        MemoFormat: toHex("text/plain"),
+        MemoType: toHex("nft/1"), // Condition
       },
     });
   }
@@ -80,8 +80,8 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
     memos.push({
       Memo: {
         MemoData: toHex(fulfillment),
-        MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/2'), // Fullfillment
+        MemoFormat: toHex("text/plain"),
+        MemoType: toHex("nft/2"), // Fullfillment
       },
     });
   }
@@ -90,8 +90,8 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
     memos.push({
       Memo: {
         MemoData: toHex(message),
-        MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/3'), // Message
+        MemoFormat: toHex("text/plain"),
+        MemoType: toHex("nft/3"), // Message
       },
     });
   }
@@ -116,9 +116,9 @@ export async function createAccountSet({
   accountSetMetadataTx,
   onSuccess,
 }: CreateAccountSetRequest) {
-  let response = await api.request('account_info', {
+  let response = await api.request("account_info", {
     account: address,
-    ledger_index: 'current',
+    ledger_index: "current",
     strict: true,
   });
 
@@ -129,19 +129,19 @@ export async function createAccountSet({
   try {
     signed = api.sign(JSON.stringify(accountSetMetadataTx), secret);
   } catch (e: any) {
-    console.log('Error signing in createAccountSet');
+    console.log("Error signing in createAccountSet");
     console.log(e);
     console.log(e.data);
   }
 
   // Subscribe
-  await api.request('subscribe', {
+  await api.request("subscribe", {
     accounts: [address],
   });
 
-  api.connection.on('transaction', (event: any) => {
+  api.connection.on("transaction", (event: any) => {
     if (event.transaction.hash === signed.id) {
-      console.log('AccountSet successfully validated:', event.transaction.hash);
+      console.log("AccountSet successfully validated:", event.transaction.hash);
 
       if (onSuccess) {
         onSuccess(event);
@@ -150,7 +150,20 @@ export async function createAccountSet({
   });
 
   // Submit it
-  const submitResponse = await api.submit(signed.signedTransaction);
+  const submitResponse = await api
+    .submit(signed.signedTransaction)
+    .then((response) => {
+      // submit again if sequence is outdated
+      if ("tefPAST_SEQ" === response.resultCode) {
+        createAccountSet({
+          api,
+          address,
+          secret,
+          accountSetMetadataTx,
+          onSuccess,
+        });
+      }
+    });
   return submitResponse;
 }
 
