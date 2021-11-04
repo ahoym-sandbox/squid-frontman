@@ -30,27 +30,25 @@ export const usePlayersContext = () => useContext(PlayersContext);
 export const PlayersContextProvider: FC = ({ children }) => {
   const [players, setPlayers] = useState<PlayersMap>({});
 
-  const addPlayer = useCallback(
-    (player: Player) => {
+  const addPlayer = useCallback((player: Player) => {
+    setPlayers((players) => {
       players[player.address] = player;
-      setPlayers({ ...players });
-    },
-    [players]
-  );
+      return { ...players };
+    });
+  }, []);
 
-  const removePlayer = useCallback(
-    (playerAddress: string) => {
+  const removePlayer = useCallback((playerAddress: string) => {
+    setPlayers((players) => {
       const player = players[playerAddress];
       player.isEliminated = true;
       players[playerAddress] = player;
-      setPlayers({ ...players });
-    },
-    [players]
-  );
+      return { ...players };
+    });
+  }, []);
 
   const resetPlayers = useCallback(() => {
-    setPlayers({});
-  }, [setPlayers]);
+    setPlayers((_players) => ({}));
+  }, []);
 
   return (
     <PlayersContext.Provider
