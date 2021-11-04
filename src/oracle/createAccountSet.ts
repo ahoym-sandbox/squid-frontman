@@ -61,7 +61,7 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
     Memo: {
       MemoData: toHex(playerXrplAddress),
       MemoFormat: toHex('text/plain'),
-      MemoType: toHex('nft/0'),
+      MemoType: toHex('nft/0'), // Player
     },
   });
 
@@ -70,7 +70,7 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
       Memo: {
         MemoData: toHex(condition),
         MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/1'), // Player
+        MemoType: toHex('nft/1'), // Condition
       },
     });
   }
@@ -79,7 +79,7 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
       Memo: {
         MemoData: toHex(fulfillment),
         MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/2'), // Player
+        MemoType: toHex('nft/2'), // Fullfillment
       },
     });
   }
@@ -89,7 +89,7 @@ export function createAccountSetDataWithMeta(data: AccountSetMetadata) {
       Memo: {
         MemoData: toHex(message),
         MemoFormat: toHex('text/plain'),
-        MemoType: toHex('nft/3'), // Condition
+        MemoType: toHex('nft/3'), // Message
       },
     });
   }
