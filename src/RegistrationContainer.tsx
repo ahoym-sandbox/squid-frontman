@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useConfettiContext } from './contexts/useConfetti';
 import { usePlayersContext } from './contexts/usePlayersContext';
 import { listenAndCreateAccountSets } from './oracle';
 import { xrplClient } from './XrplApiSandbox';
@@ -6,9 +7,11 @@ import { xrplClient } from './XrplApiSandbox';
 export function RegistrationContainer() {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
   const { addPlayer } = usePlayersContext();
+  const { toggleConfetti } = useConfettiContext();
 
   useEffect(() => {
     if (isRegistrationOpen) {
+      toggleConfetti(false);
       console.log('Registration isOpen');
 
       function newEntry(data: any) {
@@ -25,7 +28,7 @@ export function RegistrationContainer() {
       console.log('Registration isClosed');
       xrplClient.disconnect();
     }
-  }, [isRegistrationOpen, addPlayer]);
+  }, [isRegistrationOpen, addPlayer, toggleConfetti]);
 
   return (
     <div className="RegistrationContainer">

@@ -1,11 +1,9 @@
-import { xrplClient } from '../XrplApiSandbox';
+import { BANK_ADDRESS, xrplClient } from '../XrplApiSandbox';
 import {
   createAccountSet,
   createAccountSetDataWithMeta,
 } from './createAccountSet';
 import { createConditionAndFulfillment } from './utilities';
-
-const BANK_ADDRESS = 'rpMzbkZuxApNHJTAETbDB9e68b9XC9CY2C';
 
 function onAccountTransaction(event: any): Promise<{
   event: any;
@@ -25,7 +23,7 @@ function onAccountTransaction(event: any): Promise<{
         condition,
         senderXrplAddress: xrplClient.wallet()?.account.address!,
       });
-      createAccountSet({
+      return createAccountSet({
         api: xrplClient.api(),
         address: xrplClient.wallet()?.account.address!,
         secret: xrplClient.wallet()?.account.secret!,

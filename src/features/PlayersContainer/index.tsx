@@ -1,3 +1,4 @@
+import { useConfettiContext } from '../../contexts/useConfetti';
 import { usePlayersContext } from '../../contexts/usePlayersContext';
 import { Confused } from '../../faces/Confused';
 import { Happy } from '../../faces/Happy';
@@ -11,6 +12,7 @@ const FACES = [Oh, Nooo, Confused, Happy, Sad];
 
 export function PlayersContainer() {
   const { players, removePlayer, resetPlayers } = usePlayersContext();
+  const { toggleConfetti } = useConfettiContext();
   const allPlayers = Object.values(players);
   const hasOnePlayer =
     allPlayers.filter((player) => !player.isEliminated).length === 1;
@@ -33,7 +35,10 @@ export function PlayersContainer() {
                     publishWinnerFulfillment(
                       player.address,
                       player.fulfillment,
-                      resetPlayers
+                      () => {
+                        toggleConfetti(true);
+                        resetPlayers();
+                      }
                     );
                   }
                 : () => removePlayer(player.address)

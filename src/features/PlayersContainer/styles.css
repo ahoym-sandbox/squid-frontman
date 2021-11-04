@@ -38,3 +38,9 @@
 .remove:hover {
   background-color: #3b4147;
 }
+
+.Confetti {
+  position: absolute;
+  top: -800px;
+  left: 0px;
+}

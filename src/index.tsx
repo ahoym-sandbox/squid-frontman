@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { ConfettiContextProvider } from './contexts/useConfetti';
 import { PlayersContextProvider } from './contexts/usePlayersContext';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -8,7 +9,9 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
     <PlayersContextProvider>
-      <App />
+      <ConfettiContextProvider>
+        <App />
+      </ConfettiContextProvider>
     </PlayersContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

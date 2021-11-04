@@ -304,6 +304,10 @@ xrplClient.generateFaucetWallet();
 
 const publicRippleAPI = generateTestnetXrplClient();
 
+export const BANK_ADDRESS = 'rpMzbkZuxApNHJTAETbDB9e68b9XC9CY2C';
+export const ORACLE_ADDRESS =
+  TEST_NET_WALLET_DO_NOT_USE_IN_PROD_OR_YOURE_OWARI_DA.account.address;
+
 // Place RippleAPI on the window so developers can experiment with
 // it in the web console
 (window as any).RippleAPI = RippleAPI;
