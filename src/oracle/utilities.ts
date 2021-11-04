@@ -11,13 +11,11 @@ export function createConditionAndFulfillment() {
     .getConditionBinary()
     .toString('hex')
     .toUpperCase();
-  console.log('Condition:', condition); // (Random hexadecimal, 72 chars in length)
 
   // keep secret until you want to finish executing the held payment:
   const fulfillment = myFulfillment
     .serializeBinary()
     .toString('hex')
     .toUpperCase();
-  console.log('Fulfillment:', fulfillment);
   return [condition, fulfillment];
 }

@@ -127,6 +127,7 @@ export async function createAccountSet({
   try {
     signed = api.sign(JSON.stringify(accountSetMetadataTx), secret);
   } catch (e: any) {
+    console.log('Error signing in createAccountSet');
     console.log(e);
     console.log(e.data);
   }

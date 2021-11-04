@@ -84,7 +84,6 @@ export function publishWinnerFulfillment(
     secret: xrplClient.wallet()?.account.secret!,
     accountSetMetadataTx: preparedAccountSetTx,
     onSuccess: (event: any) => {
-      console.log(event);
       if (onSuccess) {
         onSuccess(event);
       }

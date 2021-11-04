@@ -30,7 +30,6 @@ export const PlayersContextProvider: FC = ({ children }) => {
   const addPlayer = useCallback(
     (player: Player) => {
       players[player.address] = player;
-      console.log('addPlayer =====', players);
       setPlayers({ ...players });
     },
     [players]
@@ -39,15 +38,10 @@ export const PlayersContextProvider: FC = ({ children }) => {
   const removePlayer = useCallback(
     (playerAddress: string) => {
       delete players[playerAddress];
-      console.log('removePlayer =====', players);
       setPlayers({ ...players });
     },
     [players]
   );
-
-  console.log('=========================');
-  console.log('TEST LOG HERE', players);
-  console.log('=========================');
 
   return (
     <PlayersContext.Provider value={{ players, addPlayer, removePlayer }}>

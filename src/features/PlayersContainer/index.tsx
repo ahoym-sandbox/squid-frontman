@@ -5,8 +5,6 @@ import './styles.css';
 export function PlayersContainer() {
   const { players, removePlayer } = usePlayersContext();
 
-  console.log('PlayersContainer', players);
-
   return (
     <div className="PlayerGrid">
       {Object.values(players).map((player) => (
