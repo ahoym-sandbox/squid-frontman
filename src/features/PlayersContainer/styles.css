@@ -17,10 +17,14 @@
 
 .PlayerCell-content {
   text-align: center;
-  margin-top: 33%;
+  margin-top: 20%;
   font-size: 14px;
   overflow: auto;
   transform: rotate(-45deg);
+}
+
+.PlayerCell-content p {
+  margin-bottom: 2px;
 }
 
 .victor:hover {
