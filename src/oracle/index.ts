@@ -111,3 +111,5 @@ export function publishMessage(
     });
   });
 }
+
+(window as any).publishMessage = publishMessage;
