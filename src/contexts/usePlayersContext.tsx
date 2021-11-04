@@ -4,6 +4,7 @@ type Player = {
   address: string;
   condition: string;
   fulfillment: string;
+  isEliminated: boolean;
 };
 
 type PlayersMap = {
@@ -14,12 +15,14 @@ interface PlayerContext {
   players: PlayersMap;
   addPlayer: (player: Player) => void;
   removePlayer: (playerAddress: string) => void;
+  resetPlayers: () => void;
 }
 
 const PlayersContext = createContext<PlayerContext>({
   players: {},
   addPlayer: () => null,
   removePlayer: () => null,
+  resetPlayers: () => null,
 });
 
 export const usePlayersContext = () => useContext(PlayersContext);
@@ -37,14 +40,22 @@ export const PlayersContextProvider: FC = ({ children }) => {
 
   const removePlayer = useCallback(
     (playerAddress: string) => {
-      delete players[playerAddress];
+      const player = players[playerAddress];
+      player.isEliminated = true;
+      players[playerAddress] = player;
       setPlayers({ ...players });
     },
     [players]
   );
 
+  const resetPlayers = useCallback(() => {
+    setPlayers({});
+  }, [setPlayers]);
+
   return (
-    <PlayersContext.Provider value={{ players, addPlayer, removePlayer }}>
+    <PlayersContext.Provider
+      value={{ players, addPlayer, removePlayer, resetPlayers }}
+    >
       {children}
     </PlayersContext.Provider>
   );

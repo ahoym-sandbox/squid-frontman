@@ -27,6 +27,10 @@
   margin-bottom: 2px;
 }
 
+.eliminated {
+  background-color: black;
+}
+
 .victor:hover {
   background-color: #0a93eb;
 }

@@ -10,14 +10,19 @@ import './styles.css';
 const FACES = [Oh, Nooo, Confused, Happy, Sad];
 
 export function PlayersContainer() {
-  const { players, removePlayer } = usePlayersContext();
-  const hasOnePlayer = Object.values(players).length === 1;
+  const { players, removePlayer, resetPlayers } = usePlayersContext();
+  const allPlayers = Object.values(players);
+  const hasOnePlayer =
+    allPlayers.filter((player) => !player.isEliminated).length === 1;
 
   return (
     <div className="PlayerGrid">
-      {Object.values(players).map((player) => {
+      {allPlayers.map((player) => {
+        if (player.isEliminated) {
+          return <div className="PlayerCell eliminated" key={player.address} />;
+        }
+
         const FaceComponent = FACES[Math.floor(Math.random() * FACES.length)];
-        const disablePlayer = () => removePlayer(player.address);
 
         return (
           <div
@@ -28,10 +33,10 @@ export function PlayersContainer() {
                     publishWinnerFulfillment(
                       player.address,
                       player.fulfillment,
-                      disablePlayer
+                      resetPlayers
                     );
                   }
-                : disablePlayer
+                : () => removePlayer(player.address)
             }
             key={player.address}
           >

@@ -16,6 +16,7 @@ export function RegistrationContainer() {
           address: data.playerXrplAddress,
           condition: data.condition,
           fulfillment: data.fulfillment,
+          isEliminated: false,
         });
       }
 
